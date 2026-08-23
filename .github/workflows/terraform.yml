@@ -27,7 +27,7 @@ jobs:
   terraform-plan:
     name: 'Terraform Plan'
     runs-on: ubuntu-latest
-    environment: production
+    environment: Production
     outputs:
       plan-status: ${{ steps.plan.outcome }}
     steps:
@@ -63,7 +63,7 @@ jobs:
     name: 'Terraform Apply'
     needs: terraform-plan
     runs-on: ubuntu-latest
-    environment: production
+    environment: Production
     if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     steps:
       - name: Checkout code
