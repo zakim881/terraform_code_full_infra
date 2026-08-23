@@ -105,7 +105,6 @@ virtual_machine = {
     }
   }
 }
-
 nsg = {
   nsg1 = {
     name                = "zakinsg1"
