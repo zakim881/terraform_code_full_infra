@@ -45,7 +45,7 @@ nic = {
   }
   "zakis_nic" = {
     name                = "zakis-nic"
-    location            = "East US
+    location            = "East US"
     resource_group_name = "zakisrg"
     ip_configuration = {
       name                          = "internal"
