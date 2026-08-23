@@ -1,4 +1,3 @@
-
 resource "azurerm_virtual_network" "example" {
   for_each = var.vnet
     name = each.value.name
