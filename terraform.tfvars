@@ -192,7 +192,6 @@ bastion_subnet = {
   "subnetting" = {
       name                 = "AzureBastionSubnet"
   resource_group_name  = "zakisrg"
-  virtual_network_name = "zakisvnet"
   address_prefixes     = ["10.0.3.0/26"]
    virtual_network_name = "vnet1" 
 }
