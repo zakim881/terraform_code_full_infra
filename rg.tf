@@ -152,20 +152,3 @@ ip_configuration {
 }
 depends_on = [azurerm_subnet.example8, azurerm_public_ip.example4]
 }
-resource "azurerm_storage_account" "example10" {
-  name                     = "zakisstorage"
-  resource_group_name      = "zakisrg"
-  location                 = "West Europe"
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
-
-  depends_on = [azurerm_resource_group.rg]
-}
-
-resource "azurerm_storage_container" "example11" {
-  name                  = "tfstate"
-    storage_account_id    = azurerm_storage_account.example10.id 
-  container_access_type = "private"
-
-  depends_on = [azurerm_storage_account.example10]
-}
