@@ -1,7 +1,3 @@
-rg_names = {
-    "rg1" = "zakisrg"
-}
-
 vnet = {
   vnet1 = {
     name                = "vnet1"
