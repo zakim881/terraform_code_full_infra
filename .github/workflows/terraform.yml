@@ -10,24 +10,21 @@ on:
     branches:
       - main
   workflow_dispatch:
-
 permissions:
   id-token: write
   contents: read
   pull-requests: write
-
 env:
   ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
   ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
   ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
   ARM_USE_OIDC: true
   TF_VERSION: '1.9.0'
-
 jobs:
   terraform-plan:
     name: 'Terraform Plan'
-    runs-on: ubuntu-latest
-    environment: Production
+    runs-on: self-hosted
+    environment: production
     outputs:
       plan-status: ${{ steps.plan.outcome }}
     steps:
@@ -40,7 +37,12 @@ jobs:
           terraform_version: ${{ env.TF_VERSION }}
 
       - name: Terraform Init
-        run: terraform init
+        run: |
+          terraform init \
+            -backend-config="resource_group_name=${{ vars.TF_BACKEND_RESOURCE_GROUP }}" \
+            -backend-config="storage_account_name=${{ vars.TF_BACKEND_STORAGE_ACCOUNT }}" \
+            -backend-config="container_name=${{ vars.TF_BACKEND_CONTAINER }}" \
+            -backend-config="key=${{ vars.TF_BACKEND_KEY }}"
 
       - name: Terraform Validate
         run: terraform validate
@@ -59,9 +61,9 @@ jobs:
   terraform-apply:
     name: 'Terraform Apply'
     needs: terraform-plan
-    runs-on: ubuntu-latest
-    environment: Production
-    if: github.ref == 'refs/heads/main'
+    runs-on: self-hosted
+    environment: production
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -72,7 +74,12 @@ jobs:
           terraform_version: ${{ env.TF_VERSION }}
 
       - name: Terraform Init
-        run: terraform init
+        run: |
+          terraform init \
+            -backend-config="resource_group_name=${{ vars.TF_BACKEND_RESOURCE_GROUP }}" \
+            -backend-config="storage_account_name=${{ vars.TF_BACKEND_STORAGE_ACCOUNT }}" \
+            -backend-config="container_name=${{ vars.TF_BACKEND_CONTAINER }}" \
+            -backend-config="key=${{ vars.TF_BACKEND_KEY }}"
 
       - name: Download plan artifact
         uses: actions/download-artifact@v4
