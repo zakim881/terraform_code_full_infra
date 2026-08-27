@@ -24,7 +24,7 @@ jobs:
   terraform-plan:
     name: 'Terraform Plan'
     runs-on: self-hosted
-    environment: production
+    environment: Production
     outputs:
       plan-status: ${{ steps.plan.outcome }}
     steps:
