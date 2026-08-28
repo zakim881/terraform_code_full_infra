@@ -57,49 +57,58 @@ virtual_machine = {
     location            = "East US"
     resource_group_name = "zakisrg"
     nic_key             = "zaki_nic"
-    vm_size = "Standard_D248ds_v7"
+    vm_size             = "Standard_D248ds_v7"
+
     storage_os_disk = {
       name              = "myosdisk1"
       caching           = "ReadWrite"
       create_option     = "FromImage"
       managed_disk_type = "Standard_LRS"
     }
+
     storage_image_reference = {
       publisher = "Canonical"
       offer     = "0001-com-ubuntu-server-jammy"
-      sku       = "22_04-lts-arm64"
+      sku       = "22_04-lts-gen2"
       version   = "latest"
     }
+
     os_profile = {
       admin_username = "testadmin"
       admin_password = "Password1234!"
     }
+
     os_profile_linux_config = {
       disable_password_authentication = false
     }
   }
+
   vm2 = {
     name                = "zakisvm2"
     location            = "East US"
     resource_group_name = "zakisrg"
     nic_key             = "zakis_nic"
-    vm_size = "Standard_D2lds_v7"
+    vm_size             = "Standard_D2lds_v7"
+
     storage_os_disk = {
       name              = "myosdisk2"
       caching           = "ReadWrite"
       create_option     = "FromImage"
       managed_disk_type = "Standard_LRS"
     }
+
     storage_image_reference = {
       publisher = "Canonical"
       offer     = "0001-com-ubuntu-server-jammy"
-      sku       = "22_04-lts-arm64"
+      sku       = "22_04-lts-gen2"
       version   = "latest"
     }
+
     os_profile = {
       admin_username = "testadmin"
       admin_password = "Password1234!"
     }
+
     os_profile_linux_config = {
       disable_password_authentication = false
     }
